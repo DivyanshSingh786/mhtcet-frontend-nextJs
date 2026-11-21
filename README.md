@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MHT-CET Computer-Based Mock Test Platform — Frontend
 
-## Getting Started
+Frontend web application for the **MHT-CET Mock Test Platform**, built with **Next.js (App Router)** and **Tailwind CSS**, connecting to a Spring Boot + Spring Cloud microservices backend routed through an API Gateway.
 
-First, run the development server:
+## Features & Exam Rules
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Streams Supported:**
+  - **PCM (Physics, Chemistry, Mathematics)** — 150 Questions, 200 Marks
+  - **PCB (Physics, Chemistry, Biology)** — 200 Questions, 200 Marks
+- **Sectional Structure & Locking:**
+  - **Section 1:** Physics & Chemistry (90-minute countdown; locks upon transition/expiry)
+  - **Section 2:** Mathematics / Biology (90-minute countdown; submits for evaluation)
+- **MHT-CET Marking Scheme:**
+  - **Mathematics:** `+2` marks per correct answer
+  - **Physics, Chemistry, Biology:** `+1` mark per correct answer
+  - **Negative Marking:** `0` (Zero negative marking)
+- **CBT Workspace & Navigation:**
+  - Live countdown timer with automatic section transition / submission on expiry
+  - Question palette showing **Answered**, **Mark for Review**, and **Unvisited** states
+  - Auto-saving answers to the backend attempt engine
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Application Routes
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+| Route | Purpose |
+| :--- | :--- |
+| `/` | Landing page & exam overview |
+| `/login` | User registration and authentication |
+| `/dashboard` | Stream selection (**PCM** / **PCB**) and test attempt launch |
+| `/exam/[attemptId]` | Split-screen CBT test interface with timer, section lock, and question palette |
+| `/result/[attemptId]` | Evaluated score summary and breakdown |
+| `/admin/questions` | Admin form to add new MCQs (Std XI / Std XII, subject, options, answer, explanation) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack
 
-## Learn More
+- **Framework:** Next.js 16 (App Router, Cache Components)
+- **Styling:** Tailwind CSS
+- **HTTP Client:** Axios (`src/lib/api.js`)
+- **Icons:** Lucide React (`lucide-react`)
+- **Backend Mesh:** Spring Boot, Spring Cloud Gateway, Eureka Service Discovery, Identity Service, Question Bank Service, Test Engine Service, Evaluation Service
 
-To learn more about Next.js, take a look at the following resources:
+## Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Configure the API Gateway base URL for API requests/rewrites:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```env
+API_GATEWAY_URL=[https://mhtcet-gateway.onrender.com](https://mhtcet-gateway.onrender.com)
