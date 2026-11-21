@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
@@ -10,6 +9,15 @@ const nextConfig = {
         as: "*.css",
       },
     },
+  },
+  async rewrites() {
+    const gatewayUrl = process.env.API_GATEWAY_URL || "http://localhost:8080";
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${gatewayUrl}/api/:path*`,
+      },
+    ];
   },
 };
 
