@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, Suspense } from "react";
 import { useParams, useRouter } from "next/navigation";
 import api from "@/lib/api";
 import { Clock, Lock, Flag, ChevronLeft, ChevronRight } from "lucide-react";
